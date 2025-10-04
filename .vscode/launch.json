@@ -1,0 +1,42 @@
+// ScriptVault-Project/.vscode/launch.json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "FastAPI: Run",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "cwd": "${workspaceFolder}/backend",
+            "args": [
+                "app.main:app",
+                "--host", "0.0.0.0",
+                "--port", "5173",
+                "--reload"
+            ],
+            "justMyCode": true,
+            "env": {
+                // 환경 변수 설정 (DB_URL 등)
+            }
+        },
+        {
+            "name": "React: Start",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/frontend",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": ["run", "dev"],
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "http://localhost:5173", 
+                "uriFormat": "%s"
+            }
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Full Stack Dev",
+            "configurations": ["FastAPI: Run", "React: Start"]
+        }
+    ]
+}
