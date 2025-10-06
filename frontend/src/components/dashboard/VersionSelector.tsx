@@ -23,7 +23,7 @@ const VersionSelector: React.FC<VersionSelectorProps> = ({
   handleRevert 
 }) => {
   return (
-    <div className="bg-gray-800 rounded-lg p-4">
+    <div className="bg-gray-800 p-4">
       <h2 className="text-sm font-semibold mb-3 flex items-center gap-2">
         <GitBranch className="w-4 h-4" />
         버전 비교 설정

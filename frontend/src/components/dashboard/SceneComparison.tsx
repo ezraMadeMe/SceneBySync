@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import type { SceneComparison } from '@/types';
 import { ListFilter, Layers, Plus, Minus, Pencil, MoveRight } from 'lucide-react';
 
@@ -45,6 +45,16 @@ const SceneComparisonComponent: React.FC<SceneComparisonProps> = ({
   showUnchangedScenes,
   setShowUnchangedScenes,
 }) => {
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (selectedScene && listRef.current) {
+      const sceneElement = listRef.current.querySelector(`#scene-item-${selectedScene}`);
+      if (sceneElement) {
+        sceneElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  }, [selectedScene]);
 
   const badgeColors: Record<string, string> = {
     added: 'bg-green-500/10 text-green-400',
@@ -60,7 +70,7 @@ const SceneComparisonComponent: React.FC<SceneComparisonProps> = ({
   }
 
   return (
-    <div className="bg-gray-800/50 rounded-lg border border-gray-700/50 flex flex-col h-full">
+    <div className="flex flex-col h-full">
       {/* Filter Header */}
       <div className="p-3 border-b border-gray-700/50">
         <div className="flex items-center justify-between">
@@ -92,14 +102,15 @@ const SceneComparisonComponent: React.FC<SceneComparisonProps> = ({
       </div>
 
       {/* Scene List */}
-      <div className="flex-1 overflow-y-auto p-2 space-y-1">
+      <div ref={listRef} className="flex-1 overflow-y-auto p-2 space-y-1">
         {filteredScenes.map((scene) => {
           const isSelected = selectedScene === scene.sceneNum;
           return (
             <div
+              id={`scene-item-${scene.sceneNum}`}
               key={scene.sceneNum}
               onClick={() => setSelectedScene(scene.sceneNum)}
-              className={`flex items-center justify-between p-2.5 rounded-md cursor-pointer transition-colors ${
+              className={`flex items-center justify-between p-2.5 cursor-pointer transition-colors ${
                 isSelected ? 'bg-purple-600/30' : 'hover:bg-gray-700/50'
               }`}
             >

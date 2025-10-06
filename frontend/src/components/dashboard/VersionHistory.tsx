@@ -1,53 +1,29 @@
 import React from 'react';
-import { Clock, User } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import type { Version } from '@/types';
+import VersionGraph from './VersionGraph';
 
-interface VersionHistoryProps {
-  versions: Version[];
-  baseVersion: string;
-  targetVersion: string;
-}
+// Mock data with parentId for demonstration
+const demoVersionsWithParents = [
+  { id: 'v1', parentId:'null', message: 'Initial commit', author: 'User A', date: '2023-10-01', tags: [] },
+  { id: 'v2', parentId: 'v1', message: 'Added character descriptions', author: 'User B', date: '2023-10-02', tags: [] },
+  { id: 'v3', parentId: 'v1', message: 'Alternative opening', author: 'User C', date: '2023-10-02', tags: ['feature-branch'] },
+  { id: 'v4', parentId: 'v2', message: 'Revised scene 5', author: 'User A', date: '2023-10-03', tags: [] },
+  { id: 'v5', parentId: 'v4', message: 'Final polish', author: 'User B', date: '2023-10-04', tags: ['release'] },
+];
+
 
 const VersionHistory: React.FC<VersionHistoryProps> = ({ versions, baseVersion, targetVersion }) => {
   return (
-    <div className="bg-gray-800 rounded-lg p-4">
+    <div className="bg-gray-800 p-4">
       <h2 className="text-sm font-semibold mb-3 flex items-center gap-2">
         <Clock className="w-4 h-4" />
         버전 히스토리
       </h2>
       
-      <div className="space-y-2">
-        {versions.map((version) => {
-          const isBase = version.id === baseVersion;
-          const isTarget = version.id === targetVersion;
-          
-          return (
-            <div
-              key={version.id}
-              className={`p-3 rounded-lg border transition-all ${
-                isBase || isTarget
-                  ? 'bg-blue-900 bg-opacity-20 border-blue-700'
-                  : 'bg-gray-700 border-gray-600'
-              }`}
-            >
-              <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-sm font-bold">{version.id}</span>
-                <span className="text-xs text-gray-400">{version.date.split(' ')[0]}</span>
-              </div>
-              <p className="text-sm mb-2">{version.message}</p>
-              <div className="flex items-center gap-2 text-xs text-gray-400">
-                <User className="w-3 h-3" />
-                <span>{version.author}</span>
-              </div>
-              {isBase && (
-                <div className="mt-2 text-xs text-blue-400">📍 기준 버전</div>
-              )}
-              {isTarget && (
-                <div className="mt-2 text-xs text-green-400">🎯 비교 대상</div>
-              )}
-            </div>
-          );
-        })}
+      <div className="overflow-x-auto py-4">
+        {/* In a real app, you'd pass the actual versions data with parent IDs */}
+        <VersionGraph versions={demoVersionsWithParents} baseVersion={baseVersion} targetVersion={targetVersion} />
       </div>
     </div>
   );

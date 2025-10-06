@@ -3,6 +3,7 @@ import { DEMO_KEYWORDS, DEMO_VERSIONS, DEMO_COMMENTS } from '@/data/demo';
 import type { Keyword, Comment, SelectedSceneDiff } from '@/types';
 import { parseScenes, compareScenes, computeLineDiffWithWords } from '@/lib/diff';
 import VersionComparator from '@/components/dashboard/VersionComparator';
+
 import KeywordManager from '@/components/dashboard/KeywordManager';
 import SceneComparisonComponent from '@/components/dashboard/SceneComparison';
 import DetailDiff from '@/components/dashboard/DetailDiff';
@@ -186,6 +187,7 @@ const Dashboard = () => {
       <main className="p-6 flex-grow flex flex-col gap-6">
         <div className="flex-grow flex gap-6 overflow-hidden">
           <div className="w-96 flex-shrink-0 flex flex-col gap-4 overflow-y-auto">
+
             <KeywordManager 
               keywords={keywords}
               selectedKeyword={selectedKeyword}

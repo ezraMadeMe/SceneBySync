@@ -40,7 +40,7 @@ const KeywordManager: React.FC<KeywordManagerProps> = ({
   };
 
   return (
-    <div className="bg-gray-800 rounded-lg p-4">
+    <div className="">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold flex items-center gap-2">
           <Tag className="w-5 h-5 text-purple-400" />
@@ -55,7 +55,7 @@ const KeywordManager: React.FC<KeywordManagerProps> = ({
         </button>
       </div>
 
-      <div className="space-y-3">
+      <div className="border-t border-gray-700">
         {keywords.map(keyword => {
           const isSelected = selectedKeyword === keyword.id;
           const isExpanded = expandedKeywords.has(keyword.id);
@@ -64,8 +64,7 @@ const KeywordManager: React.FC<KeywordManagerProps> = ({
           return (
             <div
               key={keyword.id}
-              className={`rounded-lg border-2 transition-all ${isSelected ? 'shadow-lg' : 'border-gray-700'}`}
-              style={{ borderColor: isSelected ? keyword.color : '' }}
+              className={`border-b border-gray-700 transition-all ${isSelected ? 'bg-gray-800' : ''}`}
             >
               {/* Keyword Header */}
               <div 
@@ -90,13 +89,13 @@ const KeywordManager: React.FC<KeywordManagerProps> = ({
 
               {/* Expanded Scene List */}
               {isExpanded && (
-                <div className="border-t-2 p-2 space-y-1" style={{ borderColor: keyword.color }}>
+                <div className="border-t border-gray-700 p-2 space-y-1">
                   {scenesForKeyword.length > 0 ? (
                     scenesForKeyword.map(scene => (
                       <div 
                         key={scene.sceneNum}
                         onClick={() => setSelectedScene(scene.sceneNum)}
-                        className="p-2 rounded-md hover:bg-purple-900/30 cursor-pointer text-sm flex justify-between items-center"
+                        className="p-2 hover:bg-purple-900/30 cursor-pointer text-sm flex justify-between items-center"
                       >
                         <span>씬 #{scene.sceneNum}</span>
                         <span className={`text-xs px-2 py-0.5 rounded-full bg-opacity-20 ${{
@@ -114,25 +113,20 @@ const KeywordManager: React.FC<KeywordManagerProps> = ({
                     <p className="p-2 text-xs text-gray-500 text-center">이 키워드에 해당하는 씬이 없습니다.</p>
                   )}
                   <div className="flex gap-2 pt-2 border-t border-gray-700">
-                     <button
-                        onClick={() => setSelectedKeyword(isSelected ? null : keyword.id)}
-                        className={`w-full text-xs py-1 rounded ${isSelected ? 'bg-purple-600 text-white' : 'bg-gray-600 hover:bg-gray-500'}`}
-                      >
-                        {isSelected ? '필터 해제' : '씬 목록 필터링'}
-                      </button>
                     <button
                       onClick={() => {
                         setKeywordToEdit(keyword.id);
                         setShowSceneSelector(true);
                       }}
-                      className="p-1.5 bg-gray-600 hover:bg-gray-500 rounded"
+                      className="flex-1 px-3 py-1.5 text-xs bg-gray-600 hover:bg-gray-500 flex items-center justify-center gap-2"
                       title="키워드에 씬 추가/제거"
                     >
                       <FileText className="w-3 h-3" />
+                      씬 편집
                     </button>
                     <button
                       onClick={() => handleDeleteKeyword(keyword.id)}
-                      className="p-1.5 bg-red-800 hover:bg-red-700 rounded"
+                      className="px-3 py-1.5 bg-red-800 hover:bg-red-700"
                       title="키워드 삭제"
                     >
                       <Trash2 className="w-3 h-3" />

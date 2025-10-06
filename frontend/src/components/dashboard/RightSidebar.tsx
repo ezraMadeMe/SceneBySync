@@ -40,9 +40,9 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
   comments 
 }) => {
   return (
-    <div className="col-span-3 space-y-4 h-[calc(100vh-140px)] overflow-y-auto">
+    <div className="col-span-3 bg-gray-800 h-[calc(100vh-140px)] overflow-y-auto">
       {/* 검색 및 필터 */}
-      <div className="bg-gray-800 rounded-lg p-4">
+      <div className="p-4 border-b border-gray-700">
         <h2 className="text-sm font-semibold mb-3">검색 & 필터</h2>
         
         <div className="space-y-3">
@@ -116,7 +116,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
       </div>
 
       {/* 옵션 */}
-      <div className="bg-gray-800 rounded-lg p-4">
+      <div className="p-4 border-b border-gray-700">
         <h2 className="text-sm font-semibold mb-3">표시 옵션</h2>
         
         <div className="space-y-2">
@@ -145,7 +145,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
       </div>
 
       {/* 통계 */}
-      <div className="bg-gray-800 rounded-lg p-4">
+      <div className="p-4 border-b border-gray-700">
         <h2 className="text-sm font-semibold mb-3">변경 통계</h2>
         
         <div className="space-y-2 text-xs">
@@ -179,7 +179,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
       </div>
 
       {/* 주석 통계 */}
-      <div className="bg-gray-800 rounded-lg p-4">
+      <div className="p-4">
         <h2 className="text-sm font-semibold mb-3 flex items-center gap-2">
           <MessageSquare className="w-4 h-4" />
           주석 현황
