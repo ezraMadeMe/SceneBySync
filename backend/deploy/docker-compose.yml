@@ -1,0 +1,49 @@
+# version: "3.9"
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: oros
+      POSTGRES_PASSWORD: "oros1419*"
+      POSTGRES_DB: scenebysync
+      TZ: UTC
+    ports: 
+      - "55432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U oros -d scenebysync"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  pgbouncer:
+    image: edoburu/pgbouncer:v1.24.1-p1
+    depends_on: [postgres]
+    environment:
+      ADMIN_USERS: oros
+      STATS_USERS: oros
+      DB_USER: oros
+      DB_PASSWORD: "oros1419*"
+      DB_HOST: postgres
+      DB_PORT: 5432
+
+      # 인증/호환 설정 (중요)
+      AUTH_TYPE: scram-sha-256
+      AUTH_USER: oros
+      IGNORE_STARTUP_PARAMETERS: extra_float_digits
+
+      POOL_MODE: transaction
+      MAX_CLIENT_CONN: 200
+      DEFAULT_POOL_SIZE: 20
+    ports: 
+        - "6432:6432"
+
+  adminer:
+    image: adminer:4
+    depends_on: [postgres]
+    ports: 
+      - "8080:8080"
+
+volumes:
+  pg_data:
