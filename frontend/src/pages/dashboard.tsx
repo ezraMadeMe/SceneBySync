@@ -185,42 +185,43 @@ const Dashboard = () => {
       </header>
 
       <main className="p-6 flex-grow flex flex-col gap-6">
-        <div className="flex-grow flex gap-6 overflow-hidden">
-          <div className="w-96 flex-shrink-0 flex flex-col gap-4 overflow-y-auto">
+        <div className="flex flex-col gap-4">
+          <KeywordManager
+            keywords={keywords}
+            selectedKeyword={selectedKeyword}
+            setSelectedKeyword={setSelectedKeyword}
+            setShowKeywordDialog={setShowKeywordDialog}
+            setKeywordToEdit={setKeywordToEdit}
+            setShowSceneSelector={setShowSceneSelector}
+            handleDeleteKeyword={handleDeleteKeyword}
+            sceneComparison={sceneComparison}
+            setSelectedScene={setSelectedScene}
+          />
 
-            <KeywordManager 
-              keywords={keywords}
-              selectedKeyword={selectedKeyword}
-              setSelectedKeyword={setSelectedKeyword}
-              setShowKeywordDialog={setShowKeywordDialog}
-              setKeywordToEdit={setKeywordToEdit}
-              setShowSceneSelector={setShowSceneSelector}
-              handleDeleteKeyword={handleDeleteKeyword}
-              sceneComparison={sceneComparison}
-              setSelectedScene={setSelectedScene}
-            />
-            <SceneComparisonComponent 
-              filteredScenes={filteredScenes}
-              selectedScene={selectedScene}
-              setSelectedScene={setSelectedScene}
-              filterByType={filterByType}
-              setFilterByType={setFilterByType}
-              showUnchangedScenes={showUnchangedScenes}
-              setShowUnchangedScenes={setShowUnchangedScenes}
-            />
-          </div>
-
-          <div className="flex-grow flex flex-col overflow-y-auto">
-            <DetailDiff 
-              selectedSceneDiff={selectedSceneDiff}
-              selectedScene={selectedScene}
-              lineStats={lineStats}
-              showUnchangedLines={showUnchangedScenes}
-              comments={comments}
-              setSelectedLine={setSelectedLine}
-              setShowCommentDialog={setShowCommentDialog}
-              setComments={setComments}
-            />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className="lg:col-span-1 bg-gray-800/50 backdrop-blur-sm rounded-lg border border-gray-700/50 h-full">
+              <SceneComparisonComponent
+                filteredScenes={filteredScenes}
+                selectedScene={selectedScene}
+                setSelectedScene={setSelectedScene}
+                filterByType={filterByType}
+                setFilterByType={setFilterByType}
+                showUnchangedScenes={showUnchangedScenes}
+                setShowUnchangedScenes={setShowUnchangedScenes}
+              />
+            </div>
+            <div className="lg:col-span-2">
+              <DetailDiff
+                selectedSceneDiff={selectedSceneDiff}
+                selectedScene={selectedScene}
+                lineStats={lineStats}
+                showUnchangedLines={showUnchangedScenes}
+                comments={comments}
+                setSelectedLine={setSelectedLine}
+                setShowCommentDialog={setShowCommentDialog}
+                setComments={setComments}
+              />
+            </div>
           </div>
         </div>
       </main>
